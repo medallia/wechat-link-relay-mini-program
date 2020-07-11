@@ -1,4 +1,4 @@
-# WeChat Survey Relay Mini-Program
+# WeChat Link Relay Mini-Program
 
 ## Objective
 
@@ -8,7 +8,23 @@ messages.
 
 ## Theory of Operation
 
-TBD
+After a WeChat engagement with a customer, an API call is made to Medallia
+Experience Cloud to trigger survey sampling.  The API call must contain the
+WeChat Open ID and is recommended to include details about the transaction,
+customer, and other relevant information.
+
+Once an invitation record is created, an API call from Medallia to WeChat
+is made.  The API call initiates a Template Message on WeChat, passing in
+the WeChat Open ID, survey URL (encoded in Base64 format), and a reference
+to the mini program's identifier to use.  Note that this API call must be
+made within 48 hours of the original WeChat engagement with the customer
+as per the WeChat platform requirements.
+
+The customer receives a message in their WeChat app.  The message contains
+a clickable link to the mini program.  When the customer clicks the link,
+the mini program is opened.  The mini program then decodes the survey URL
+and opens a web view with the survey shown.  The customer then finishes
+the survey and closes the web view.
 
 ## Configurability
 
@@ -20,20 +36,7 @@ assigned from WeChat.
 
 This reference implementation was built on the following dependencies:
 
-- Java 11
-- An available K-field in the Medallia system named
-  `k_initialfinishdate_epoch_int` (or similar)
-
-## Compile/Run
-
-Edit the `application.properties` file for your instance's settings,
-then run the following commands:
-
-```
-./compile.sh
-
-./run.sh
-```
+- [WeChat Developer Tools][wechat-dev-tools]
 
 ## License
 
@@ -50,3 +53,6 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
+
+
+[wechat-dev-tools]: https://developers.weixin.qq.com/doc/offiaccount/en/OA_Web_Apps/Web_Developer_Tools.html

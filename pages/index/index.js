@@ -1,25 +1,43 @@
-const app = getApp()
+const app = getApp();
 
 Page({
   data: {
-    motto: 'WeChat Link Relay Mini-Program',
+    options: 'No options',
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
+
   bindViewTap: function() {},
-  onLoad: function () {
-    wx.navigateTo({
-      // TODO: Dynamically manage this?
-      url: '../survey/index?ref=aHR0cHM6Ly9tY3N0YWdlLm1lZGFsbGlhLmNvbS93aWRnZXQvaW5kZXguaHRtbD9jaGFubmVsPTFlZTQzZDUwLTk5MTgtMTFlOS1iMGU5LThiYzY3OTUxNWYxNCZrZXl3      b3JkPXNsYWNrJmNvbnN1bWVyPXRlc3QyMzQzNDM1NA=='
-    })
+
+  onLoad: function (query) {
+    let optionsStr = 'query parameters: ';
+
+    Object.keys(query).forEach((key) => {
+      optionsStr += key + ': ' + options[key] + ', ';
+    });
+
+    console.log('options in main: ', optionsStr);
+
+    this.setData({options: optionsStr});
+
+    if (query.ref) {
+      console.log('Navigating to ', query.ref);
+
+      wx.navigateTo({
+        url: '../survey/index?ref=' + query.ref
+      });
+    }
   },
+
   getUserInfo: function(e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
+    console.log(e);
+
+    app.globalData.userInfo = e.detail.userInfo;
+
     this.setData({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
-    })
+    });
   }
-})
+});

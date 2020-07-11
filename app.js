@@ -5,9 +5,7 @@ App({
     wx.setStorageSync('logs', logs)
 
     wx.login({
-      success: res => {
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
-      }
+      success: res => {}
     })
 
     wx.getSetting({
@@ -26,6 +24,7 @@ App({
       }
     })
   },
+
   globalData: {
     userInfo: null
   }
