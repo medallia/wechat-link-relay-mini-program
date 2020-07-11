@@ -55,4 +55,4 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 
-[wechat-dev-tools]: https://developers.weixin.qq.com/doc/offiaccount/en/OA_Web_Apps/Web_Developer_Tools.html
+[wechat-dev-tools]: https://developers.weixin.qq.com/miniprogram/en/dev/devtools/download.html
